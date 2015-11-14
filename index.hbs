@@ -1,0 +1,9 @@
+<div ng-non-bindable class="pagespace-posts">
+    {{#each data.posts}}
+        <h2 class="post-heading"><a href="{{this.url}}">{{this.title}}</a></h2>
+        <p class="date">{{formatDate this.date}}</p>
+        <div class="{{../data.wrapperClass}}">
+            {{{this.data.html}}}
+        </div>
+    {{/each}}
+</div>

@@ -1,0 +1,36 @@
+{
+  "name": "pagespace-posts",
+  "version": "1.0.0",
+  "description": "Useful for creating blogs and newsfeeds from pages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node standalone",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phil Mander",
+  "license": "MIT",
+  "devDependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
+    "serve-favicon": "^2.3.0"
+  },
+  "peerDependencies": {
+
+  },
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "mongoose": "~4.1.5"
+  },
+  "pagespace" : {
+     "name" : "Posts",
+      "config" : {
+        "root" : null,
+        "regionName" : null,
+        "includeIndex" : 0,
+        "emptyMessageHtml" : "<!-- There are no items to display -->",
+        "wrapperClass" : "pagespace-posts",
+        "expiry" : 0
+      }
+  }
+}
