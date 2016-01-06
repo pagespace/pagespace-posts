@@ -19,7 +19,7 @@ module.exports = {
         var includeIndex = config.includeIndex;
 
         //configure query
-        var sortField = config.sort || '-createdAt';
+        var sortField = config.sort || '-publishedAt';
         var pageQuery = {};
         if(parent) {
             pageQuery.parent = new mongoose.Types.ObjectId(parent);
@@ -43,7 +43,7 @@ module.exports = {
             var post = {};
             post.title = page.name;
             post.url = page.url;
-            post.date = page.createdAt;
+            post.date = page.publishedAt || page.createdAt;
             for(var i = 0; i < page.regions.length; i++) {
                 var region = page.regions[i];
                 if(region.name === regionName &&
