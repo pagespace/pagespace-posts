@@ -6,7 +6,9 @@
                 <p class="date">{{formatDate this.date day="numeric" month="long" year="numeric"}}</p>
             {{/if}}
             <div class="{{../data.wrapperClass}}">
-                {{{this.data.html}}}
+                {{#each this.includes}}
+                    {{{this.html}}}
+                {{/each}}
             </div>
         </div>
     {{/each}}
