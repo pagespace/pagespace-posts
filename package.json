@@ -22,15 +22,35 @@
     "bluebird": "^2.9.34",
     "mongoose": "~4.1.5"
   },
+  "keywords" : [ "pagespace-plugin" ],
   "pagespace" : {
-     "name" : "Posts",
-      "config" : {
-        "root" : null,
-        "regionName" : null,
-        "includeIndex" : 0,
-        "emptyMessageHtml" : "<!-- There are no items to display -->",
-        "wrapperClass" : "pagespace-posts",
-        "expiry" : 0
-      }
+      "schema" : [{
+          "name" : "root",
+          "type" : "page",
+          "default" : null,
+          "title" : "Root page",
+          "description" : "Blog posts will be aggregated from child pages of this page",
+          "required" : true
+      }, {
+          "name" : "regionName",
+          "title" : "Aggregate from region",
+          "type" : "string",
+          "default" : null
+      }, {
+          "name" : "emptyMessageHtml",
+          "title" : "No Posts HTML",
+          "default" : "<!-- There are no items to display -->",
+          "type" : "string"
+      }, {
+          "name" : "wrapperClass",
+          "title" : "CSS Class",
+          "default" : "pagespace-posts",
+          "type" : "string"
+      }, {
+          "name" : "expiry",
+          "title" : "Expiry date",
+          "default" : -1,
+          "type" : "date"
+      }]
   }
 }

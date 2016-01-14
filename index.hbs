@@ -1,11 +1,11 @@
 <div ng-non-bindable class="pagespace-posts">
-    {{#each data.posts}}
+    {{#each posts}}
         <div class="pagespace-post">
             <h2 class="post-heading"><a href="{{this.url}}">{{this.title}}</a></h2>
             {{#if this.date}}
                 <p class="date">{{formatDate this.date day="numeric" month="long" year="numeric"}}</p>
             {{/if}}
-            <div class="{{../data.wrapperClass}}">
+            <div class="{{../wrapperClass}}">
                 {{#each this.includes}}
                     {{{this.html}}}
                 {{/each}}
