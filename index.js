@@ -16,7 +16,6 @@ module.exports = {
                 }]
             };
         }
-        var includeIndex = config.includeIndex;
 
         //configure query
         var sortField = config.sort || '-publishedAt';
@@ -37,7 +36,7 @@ module.exports = {
         //query pages
         var preview = opts.preview;
         var PageModel = pagespace.getPageModel(preview);
-        var query = PageModel.find(pageQuery).populate('regions.includes.plugin regions.includes.data').sort(sortField);
+        var query = PageModel.find(pageQuery).populate('regions.includes.plugin regions.includes.include').sort(sortField);
         var findPagePromise = Promise.promisify(query.exec, query);
         return findPagePromise().map(function(page) {
             var post = {};
@@ -53,7 +52,8 @@ module.exports = {
                         if(include.plugin) {
                             var pluginModule = pagespace.pluginResolver.require(include.plugin ? include.plugin.module : null);
                             if (pluginModule) {
-                                var includeData = include.data && include.data.config ? include.data.config : {};
+                                console.log(include.include)
+                                var includeData = include.include && include.include.data ? include.include.data : {};
                                 if (typeof pluginModule.process === 'function') {
                                     postIncludes.push(pluginModule.process(includeData, {
                                         preview: opts.preview,
