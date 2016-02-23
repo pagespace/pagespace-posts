@@ -1,6 +1,6 @@
 {
   "name": "pagespace-posts",
-  "version": "1.0.2",
+  "version": "0.1.0",
   "description": "Useful for creating blogs and newsfeeds from pages",
   "main": "index.js",
   "scripts": {
@@ -22,15 +22,35 @@
     "bluebird": "^2.9.34",
     "mongoose": "~4.1.5"
   },
+  "keywords" : [ "pagespace-plugin" ],
   "pagespace" : {
-     "name" : "Posts",
-      "config" : {
-        "root" : null,
-        "regionName" : null,
-        "includeIndex" : 0,
-        "emptyMessageHtml" : "<!-- There are no items to display -->",
-        "wrapperClass" : "pagespace-posts",
-        "expiry" : 0
+      "schema" : {
+          "type" : "object",
+          "title" : "Posts",
+          "properties" : {
+              "root" : {
+                  "type" : "string",
+                  "title" : "Root page",
+                  "description" : "Blog posts will be aggregated from child pages of this page"
+              },
+              "regionName" : {
+                  "title" : "Aggregate posts from region",
+                  "type" : "string"
+              },
+              "expiry" : {
+                  "title" : "Expiry date",
+                  "type" : "number",
+                  "default" : 0,
+                  "description" : "An expiry greater than 0 will display posts belonging to pages with a future expiry date, less than 0 will display posts belonging to pages with a past expiry date"
+              },
+              "postWrapperClass" : {
+                  "title" : "CSS wrapper class for each post",
+                  "type" : "string",
+                  "default" : "pagespace-post"
+              }
+          },
+          "required" : [ "root", "regionName" ],
+          "form" : [ "root", "regionName", "expiry", "postWrapperClass" ]
       }
   }
 }
