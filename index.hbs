@@ -1,11 +1,17 @@
 <div ng-non-bindable class="pagespace-posts">
+    {{#if invalid}}
+        <div class="pagespace-posts-invalid">
+            {{{invalid}}}
+        </div>
+    {{/if}}
+
     {{#each posts}}
         <div class="pagespace-post">
             <h2 class="post-heading"><a href="{{this.url}}">{{this.title}}</a></h2>
             {{#if this.date}}
                 <p class="date">{{formatDate this.date day="numeric" month="long" year="numeric"}}</p>
             {{/if}}
-            <div class="{{../wrapperClass}}">
+            <div class="{{../postWrapperClass}}">
                 {{#each this.includes}}
                     {{{this.html}}}
                 {{/each}}

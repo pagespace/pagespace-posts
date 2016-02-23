@@ -24,33 +24,33 @@
   },
   "keywords" : [ "pagespace-plugin" ],
   "pagespace" : {
-      "schema" : [{
-          "name" : "root",
-          "type" : "page",
-          "default" : null,
-          "title" : "Root page",
-          "description" : "Blog posts will be aggregated from child pages of this page",
-          "required" : true
-      }, {
-          "name" : "regionName",
-          "title" : "Aggregate from region",
-          "type" : "string",
-          "default" : null
-      }, {
-          "name" : "emptyMessageHtml",
-          "title" : "No Posts HTML",
-          "default" : "<!-- There are no items to display -->",
-          "type" : "string"
-      }, {
-          "name" : "wrapperClass",
-          "title" : "CSS Class",
-          "default" : "pagespace-posts",
-          "type" : "string"
-      }, {
-          "name" : "expiry",
-          "title" : "Expiry date",
-          "default" : -1,
-          "type" : "date"
-      }]
+      "schema" : {
+          "type" : "object",
+          "title" : "Posts",
+          "properties" : {
+              "root" : {
+                  "type" : "string",
+                  "title" : "Root page",
+                  "description" : "Blog posts will be aggregated from child pages of this page"
+              },
+              "regionName" : {
+                  "title" : "Aggregate posts from region",
+                  "type" : "string"
+              },
+              "expiry" : {
+                  "title" : "Expiry date",
+                  "type" : "number",
+                  "default" : 0,
+                  "description" : "An expiry greater than 0 will display posts belonging to pages with a future expiry date, less than 0 will display posts belonging to pages with a past expiry date"
+              },
+              "postWrapperClass" : {
+                  "title" : "CSS wrapper class for each post",
+                  "type" : "string",
+                  "default" : "pagespace-post"
+              }
+          },
+          "required" : [ "root", "regionName" ],
+          "form" : [ "root", "regionName", "expiry", "postWrapperClass" ]
+      }
   }
 }

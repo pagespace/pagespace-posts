@@ -10,10 +10,7 @@ module.exports = {
         var regionName = config.regionName || null;
         if(!regionName) {
             return {
-                wrapperClass: config.wrapperClass,
-                posts: [{
-                    html: '<p>This plugin is not configured properly (no region name)</p>'
-                }]
+               invalid: '<p>This plugin is not configured properly (no region name)</p>'
             };
         }
 
@@ -52,7 +49,6 @@ module.exports = {
                         if(include.plugin) {
                             var pluginModule = pagespace.pluginResolver.require(include.plugin ? include.plugin.module : null);
                             if (pluginModule) {
-                                console.log(include.include)
                                 var includeData = include.include && include.include.data ? include.include.data : {};
                                 if (typeof pluginModule.process === 'function') {
                                     postIncludes.push(pluginModule.process(includeData, {
@@ -75,13 +71,6 @@ module.exports = {
                 wrapperClass: config.wrapperClass,
                 posts: posts
             }
-        }).then(null, function(err) {
-            return {
-                wrapperClass: config.wrapperClass,
-                posts: [{
-                    html: err
-                }]
-            };
         });
     }
 };
