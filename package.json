@@ -15,42 +15,50 @@
     "express-handlebars": "^2.0.1",
     "serve-favicon": "^2.3.0"
   },
-  "peerDependencies": {
-
-  },
+  "peerDependencies": {},
   "dependencies": {
     "bluebird": "^2.9.34",
-    "mongoose": "~4.1.5"
+    "mongoose": "^4.5.7"
   },
-  "keywords" : [ "pagespace-plugin" ],
-  "pagespace" : {
-      "schema" : {
-          "type" : "object",
-          "title" : "Posts",
-          "properties" : {
-              "root" : {
-                  "type" : "string",
-                  "title" : "Root page",
-                  "description" : "Blog posts will be aggregated from child pages of this page"
-              },
-              "regionName" : {
-                  "title" : "Aggregate posts from region",
-                  "type" : "string"
-              },
-              "expiry" : {
-                  "title" : "Expiry date",
-                  "type" : "number",
-                  "default" : 0,
-                  "description" : "An expiry greater than 0 will display posts belonging to pages with a future expiry date, less than 0 will display posts belonging to pages with a past expiry date"
-              },
-              "postWrapperClass" : {
-                  "title" : "CSS wrapper class for each post",
-                  "type" : "string",
-                  "default" : "pagespace-post"
-              }
-          },
-          "required" : [ "root", "regionName" ],
-          "form" : [ "root", "regionName", "expiry", "postWrapperClass" ]
-      }
+  "keywords": [
+    "pagespace-plugin"
+  ],
+  "pagespace": {
+    "schema": {
+      "type": "object",
+      "title": "Posts",
+      "properties": {
+        "root": {
+          "type": "string",
+          "title": "Root page",
+          "description": "Blog posts will be aggregated from child pages of this page"
+        },
+        "regionName": {
+          "title": "Aggregate posts from region",
+          "type": "string"
+        },
+        "expiry": {
+          "title": "Expiry date",
+          "type": "number",
+          "default": 0,
+          "description": "An expiry greater than 0 will display posts belonging to pages with a future expiry date, less than 0 will display posts belonging to pages with a past expiry date"
+        },
+        "postWrapperClass": {
+          "title": "CSS wrapper class for each post",
+          "type": "string",
+          "default": "pagespace-post"
+        }
+      },
+      "required": [
+        "root",
+        "regionName"
+      ],
+      "form": [
+        "root",
+        "regionName",
+        "expiry",
+        "postWrapperClass"
+      ]
+    }
   }
 }
