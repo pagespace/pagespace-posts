@@ -38,7 +38,7 @@
           "type": "string"
         },
         "expiry": {
-          "title": "Expiry date",
+          "title": "Expiry",
           "type": "number",
           "default": 0,
           "description": "An expiry greater than 0 will display posts belonging to pages with a future expiry date, less than 0 will display posts belonging to pages with a past expiry date"
@@ -47,6 +47,21 @@
           "title": "CSS wrapper class for each post",
           "type": "string",
           "default": "pagespace-post"
+        },
+        "includeLimit" : {
+          "title" : "Include limit",
+          "type" : "number",
+          "description" : "The number of includes to show for each aggregtated post. A value less than 0 will display all includes."
+        },
+        "defaultTags" : {
+          "title" : "Default tags",
+          "type" : "string",
+          "description" : "A comma delimted list of tags to filter pages by, if none are given in the page request"
+        },
+        "noPostsHtml" : {
+          "title" : "No posts",
+          "type" : "string",
+          "description" : "HTML to display if there are no posts."
         }
       },
       "required": [
@@ -57,7 +72,13 @@
         "root",
         "regionName",
         "expiry",
-        "postWrapperClass"
+        "postWrapperClass",
+        "includeLimit",
+        "defaultTags",
+        {
+          "key": "noPostsHtml",
+          "type": "textarea"
+        }
       ]
     }
   }

@@ -6,16 +6,21 @@
     {{/if}}
 
     {{#each posts}}
-        <div class="pagespace-post">
+        <div class="pagespace-post" data-post-tags="{{this.tags}}">
             <h2 class="post-heading"><a href="{{this.url}}">{{this.title}}</a></h2>
             {{#if this.date}}
-                <p class="date">{{formatDate this.date day="numeric" month="long" year="numeric"}}</p>
+                <p class="post-date date">{{formatDate this.date day="numeric" month="long" year="numeric"}}</p>
             {{/if}}
-            <div class="{{../postWrapperClass}}">
+            <div class="post-content {{../postWrapperClass}}">
                 {{#each this.includes}}
                     {{{this.html}}}
                 {{/each}}
             </div>
         </div>
+    {{else}}
+        {{{noPostsHtml}}}
     {{/each}}
+
+
+
 </div>

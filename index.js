@@ -1,22 +1,39 @@
 'use strict';
 
-var Promise = require('bluebird');
-var mongoose = require('mongoose');
+const url = require('url');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 module.exports = {
     process: function(config, opts) {
-        var parent = config.root;
+        const parent = config.root;
 
-        var regionName = config.regionName || null;
+        //region to extract from
+        const regionName = config.regionName || null;
         if(!regionName) {
             return {
                invalid: '<p>This plugin is not configured properly (no region name)</p>'
             };
         }
 
+        //include limit
+        let includeLimit = typeof config.includeLimit === 'number' ? config.includeLimit : -1;
+
+        //tags
+        let filterByTags = config.defaultTags || [];
+        if(opts.req) {
+            const reqUrl = url.parse(opts.req.url, true);
+            if(reqUrl.query && reqUrl.query.tags) {
+                filterByTags = reqUrl.query.tags;
+            }
+        }
+        if(!Array.isArray(filterByTags)) {
+            filterByTags = filterByTags.split(/\s*,\s*/);    
+        }
+
         //configure query
-        var pageQuery = {};
+        const pageQuery = {};
         if(parent) {
             pageQuery.parent = new mongoose.Types.ObjectId(parent);
         }
@@ -31,22 +48,39 @@ module.exports = {
         }
 
         //query pages
-        var preview = opts.preview;
-        var PageModel = pagespace.getPageModel(preview);
-        var findPagePromise = PageModel.find(pageQuery).populate('regions.includes.plugin regions.includes.include').exec();
-        return findPagePromise.map(function(page) {
-            var post = {};
+        const preview = opts.preview;
+        const PageModel = pagespace.getPageModel(preview);
+        let pagesPromise = PageModel.find(pageQuery).populate('regions.includes.plugin regions.includes.include').exec();
+        
+        if(filterByTags.length) {
+            pagesPromise = pagesPromise.filter(page => {
+                const pageTags = page.tags.map(tag => tag.text);
+                for(let tag of filterByTags) {
+                    if(pageTags.indexOf(tag) > -1) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+        
+        return pagesPromise.map(page => {
+            const post = {};
             post.title = page.name;
             post.url = page.url;
+            post.tags = Array.isArray(page.tags) ? page.tags.join(',') : '';
             post.date = page.publishedAt || page.createdAt;
-            var postIncludes = [];
+            const postIncludes = [];
             const region = page.regions.find(region => region.name === regionName);
-
-            for(let include of region.includes) {
+            if(includeLimit < 0) {
+                includeLimit = region.includes.length;
+            }
+            const includesToRender = region.includes.slice(0, includeLimit);
+            for(let include of includesToRender) {
                 if(include.plugin) {
-                    var pluginModule = pagespace.pluginResolver.require(include.plugin ? include.plugin.module : null);
+                    const pluginModule = pagespace.pluginResolver.require(include.plugin ? include.plugin.module : null);
                     if (pluginModule) {
-                        var includeData = include.include && include.include.data ? include.include.data : {};
+                        const includeData = include.include && include.include.data ? include.include.data : {};
                         if (typeof pluginModule.process === 'function') {
                             postIncludes.push(pluginModule.process(includeData, {
                                 preview: opts.preview,
