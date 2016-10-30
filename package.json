@@ -1,6 +1,6 @@
 {
   "name": "pagespace-posts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Useful for creating blogs and newsfeeds from pages",
   "main": "index.js",
   "scripts": {
@@ -51,6 +51,7 @@
         "includeLimit" : {
           "title" : "Include limit",
           "type" : "number",
+          "default" : -1,
           "description" : "The number of includes to show for each aggregtated post. A value less than 0 will display all includes."
         },
         "defaultTags" : {

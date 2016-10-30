@@ -64,13 +64,18 @@ module.exports = {
             });
         }
         
+        //map each page to a post
         return pagesPromise.map(page => {
+            
+            //basic page post meta
             const post = {};
             post.title = page.name;
             post.url = page.url;
             post.tags = Array.isArray(page.tags) ? page.tags.join(',') : '';
             post.date = page.publishedAt || page.createdAt;
             const postIncludes = [];
+            
+            //for the given region, resolve plugins and process includes for that region
             const region = page.regions.find(region => region.name === regionName);
             if(includeLimit < 0) {
                 includeLimit = region.includes.length;
@@ -94,9 +99,10 @@ module.exports = {
                 }
             }
 
-            post.includes = postIncludes;
+            post.includes = Promise.all(postIncludes);
             return Promise.props(post);
         }).then(function(posts) {
+            //sort posts by date
             posts.sort(function(a, b) {
                 a = new Date(a.date);
                 b = new Date(b.date);
