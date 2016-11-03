@@ -110,6 +110,7 @@ module.exports = {
             });
             return {
                 wrapperClass: config.wrapperClass,
+                noPostsHtml: config.noPostsHtml,
                 posts: posts
             }
         });
