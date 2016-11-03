@@ -1,6 +1,6 @@
 {
   "name": "pagespace-posts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Useful for creating blogs and newsfeeds from pages",
   "main": "index.js",
   "scripts": {
