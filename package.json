@@ -57,7 +57,7 @@
         "defaultTags" : {
           "title" : "Default tags",
           "type" : "string",
-          "description" : "A comma delimted list of tags to filter pages by, if none are given in the page request"
+          "description" : "A comma delimted list of tags to filter pages by, if none are present in the request's query string (?tags=foo,bar)"
         },
         "noPostsHtml" : {
           "title" : "No posts",
